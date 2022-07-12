@@ -3,18 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>HRM DASHBOARD</title>
+
+    <style>
+        th,td{
+        border: 1px black solid;
+        }
+    </style>
 </head>
 <body>
 
-    <h3>HRM DASHBOARD</h3>
+    <h1>HRM DASHBOARD</h1>
 
     {% if user.is_authenticated %}
-        <h3>Hello {{ full_name }}</h3>
-        <h4>Logged In successfully</h4>
-        <button type="submit"><a href="/log_out">Log Out</a></button>
-    {% else %}
-        <h3>Buto</h3>
-    {% endif %}
+        <div>
+            <h3>Hello {{ profile.user_profile_short_name }}</h3>
+            <button type="submit"><a href="/log_out">Log Out</a></button>
+        </div>
+
+        <div>
+            <h4>Profile</h4>
+            {{profile.user_profile_full_name}}<br>
+            {{profile.user_profile_phone_number}}<br>
+        </div>
+
+        <div>
+        <h2>Rent</h2>
+        {% if monthly_rent %}
+            <h3>Total for {{rent_month}} is {{total}}</h3>
+            <h3>Seorang bayar {{payment}}</h3>
+            <table>
+                <tr>
+                 <th>Month</th>
+                 <th>Rent Year</th>
+                 <th>Rent Amount</th>
+                 <th>electric_amount</th>
+                 <th>water_amount</th>
+                 <th>wifi_amount</th>
+                 <th>other_amount</th>
+                 <th>other_desc</th>
+                </tr>
+            <tr>
+                {% for rent in monthly_rent %}
+                <td>{{rent.rent_month}}</td>
+                <td>{{rent.rent_year}}</td>
+                <td>{{rent.rent_amount}}</td>
+                <td>{{rent.electric_amount}}</td>
+                <td>{{rent.water_amount}}</td>
+                <td>{{rent.wifi_amount}}</td>
+                <td>{{rent.other_amount}}</td>
+                <td>{{rent.other_desc}}</td>
+            </tr>
+                {% endfor %}
+            </table>
+                {% else %}
+            <h1>No Data</h1>
+        {% endif %}
+        </div>
+
+
+        <div>
+        <h2>All Members</h2>
+            {% if all_profiles %}
+                <table>
+                    <tr>
+                     <th>Full name</th>
+                     <th>Nickname</th>
+                     <th>Phone Number</th>
+                    </tr>
+                <tr>
+                    {% for profile in all_profiles %}
+                    <td>{{profile.user_profile_full_name}}</td>
+                    <td>{{profile.user_profile_short_name}}</td>
+                    <td>{{profile.user_profile_phone_number}}</td>
+                </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                <h1>No Data</h1>
+                    {% endif %}
+            {% endif %}
+        </div>
 
 </body>
 </html>

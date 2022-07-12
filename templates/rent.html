@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th,td{
+        border: 1px black solid;
+        }
+    </style>
+</head>
+<body>
+ <h1>Rent</h1>
+{% if monthly_rent %}
+ <h3>Total for {{rent.rent_month}} is {{total}}</h3>
+ <h3>Seorang bayar {{payment}}</h3>
+ <table>
+     <tr>
+         <th>Rent ID</th>
+         <th>rent_month</th>
+         <th>rent_year</th>
+         <th>rent_amount</th>
+         <th>electric_amount</th>
+         <th>water_amount</th>
+         <th>wifi_amount</th>
+         <th>other_amount</th>
+         <th>other_desc</th>
+     </tr>
+ <tr>
+     {% for rent in monthly_rent %}
+     <td>{{rent.rent_id}}</td>
+     <td>{{rent.rent_month}}</td>
+     <td>{{rent.rent_year}}</td>
+     <td>{{rent.rent_amount}}</td>
+     <td>{{rent.electric_amount}}</td>
+     <td>{{rent.water_amount}}</td>
+     <td>{{rent.wifi_amount}}</td>
+     <td>{{rent.other_amount}}</td>
+     <td>{{rent.other_desc}}</td>
+ </tr>
+     {% endfor %}
+</table>
+{% else %}
+ <h1>No Data</h1>
+{% endif %}
+</body>
+</html>
